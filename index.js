@@ -5,9 +5,9 @@ const port = process.env.PORT || 8080;
 
 http.createServer((req, res) => {
   // handle request url
-  let filePath = '.' + req.url;
-  if (filePath === './') {
-    filePath = './src/index.html';
+  let filePath = './public' + req.url;
+  if (filePath === './public/') {
+    filePath = './public/index.html';
   }
 
   // match file extension to MIME type
