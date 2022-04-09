@@ -1,43 +1,19 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const express = require('express');
+const app = express();
 const port = process.env.PORT || 8080;
 
-http.createServer((req, res) => {
-  // handle request url
-  let filePath = './public' + req.url;
-  if (filePath === './public/') {
-    filePath = './public/index.html';
-  }
+// serve static files
+app.use(express.static(__dirname + '/public'));
 
-  // match file extension to MIME type
-  let extname = String(path.extname(filePath)).toLowerCase();
-  let mimeTypes = {
-    '.html': 'text/html',
-    '.js': 'text/javascript',
-    '.css': 'text/css',
-  };
-  let contentType = mimeTypes[extname] || 'application/octet-stream';
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
 
-  // respond to client
-  fs.readFile(filePath, 'utf-8', (err, data) => {
-    // handle errors
-    if (err) {
-      // reply to ENOENT with 404
-      if(err.code == 'ENOENT') {
-        fs.readFile('./404.html', (err, data) => {
-          res.writeHead(404, { 'Content-Type': 'text/html' });
-          res.end(data);
-        });
-      } else {
-        res.writeHead(500);
-        res.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
-      }
-    } else {
-      // if no errors send requested file
-      res.statusCode = 200;
-      res.setHeader('Content-Type', contentType);
-      res.end(data);
-    }
-  });
-}).listen(port);
+// route all other requests to 404 page
+app.use((req, res,) => {
+  res.status(404).sendFile(__dirname + '/public/404.html');
+});
+
+app.listen(port, function() {
+  console.log('server listening on port ' + port)
+});
