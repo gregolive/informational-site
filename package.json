@@ -1,0 +1,26 @@
+{
+  "name": "informational-site",
+  "version": "1.0.0",
+  "description": "Basic informational site made to practice NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregolive/informational-site.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "author": "Gregory Olive",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregolive/informational-site/issues"
+  },
+  "homepage": "https://github.com/gregolive/informational-site#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
